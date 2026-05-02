@@ -12,7 +12,7 @@ export default function SimulationCanvas() {
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    const newSocket = io('http://localhost:8080');
+    const newSocket = io('https://pulse-backend-164617921386.asia-south1.run.app');
     setSocket(newSocket);
 
     newSocket.on('simulation:start', (data) => {
@@ -35,7 +35,7 @@ export default function SimulationCanvas() {
     if (!policyText) return;
     setIsSimulating(true);
     try {
-      await fetch('http://localhost:8080/api/simulate-sentiment', {
+      await fetch('https://pulse-backend-164617921386.asia-south1.run.app/api/simulate-sentiment', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ eventText: policyText, personas: [{ id: "P-847", demographic: "Gen Z Urban Student", core_values: ["climate", "education", "jobs"] }, { id: "P-219", demographic: "Rural Farmer", core_values: ["agriculture", "subsidies", "infrastructure"] }, { id: "P-551", demographic: "Suburban Parent", core_values: ["taxes", "healthcare", "safety"] }] })
