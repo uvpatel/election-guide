@@ -42,7 +42,19 @@ export default async function aiEngineRoutes(fastify, options) {
   fastify.post('/api/simulate-sentiment', async (request, reply) => {
     try {
       const { eventText, personas } = simulateSentimentSchema.parse(request.body);
+      
+      // Emit initial start event to connected websockets
+      fastify.io.emit('simulation:start', { eventText });
+
       const reactions = await simulateSentiment(eventText, personas);
+      
+      // Emit results via websocket to simulate streaming
+      reactions.forEach(result => {
+        fastify.io.emit('simulation:update', result);
+      });
+
+      fastify.io.emit('simulation:complete', { status: 'done', totalProcessed: reactions.length });
+
       return { success: true, data: reactions };
     } catch (error) {
       request.log.error(error);
