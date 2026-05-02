@@ -1,6 +1,6 @@
 import './globals.css'
 import Link from 'next/link'
-import { Activity, Users, Zap, Target, BarChart3 } from 'lucide-react'
+import { Activity, Users, Zap, Target, BarChart3, HelpCircle } from 'lucide-react'
 
 export const metadata = {
   title: 'Pulse of Democracy AI',
@@ -30,6 +30,7 @@ export default function RootLayout({ children }) {
               <NavItem href="/simulation-lab" icon={<Zap />} label="Simulation" />
               <NavItem href="/war-room" icon={<Target />} label="War Room" />
               <NavItem href="/prediction" icon={<BarChart3 />} label="Predictor" />
+              <NavItem href="/what-if" icon={<HelpCircle />} label="What If Sandbox" />
             </ul>
           </div>
         </nav>
