@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
-import { TrendingUp, AlertTriangle, MessageSquare } from 'lucide-react';
+import { TrendingUp, AlertTriangle, MessageSquare, Activity } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 const generateWaveData = () => {
