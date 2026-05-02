@@ -2,6 +2,7 @@ import fastify from "fastify";
 import cors from "@fastify/cors";
 import fastifySocketIo from "fastify-socket.io";
 import simulationRoutes from "./routes/simulationRoutes.js";
+import aiEngineRoutes from "./routes/aiEngineRoutes.js";
 
 export function buildApp() {
   const app = fastify({ logger: true });
@@ -18,6 +19,7 @@ export function buildApp() {
   });
 
   app.register(simulationRoutes);
+  app.register(aiEngineRoutes);
 
   app.get('/health', async () => {
     return { status: 'ok' };

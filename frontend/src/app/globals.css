@@ -3,17 +3,41 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: 2, 6, 23;
-  --background-end-rgb: 2, 6, 23;
+  --background: 2, 6, 23; /* slate-950 */
+  --foreground: 248, 250, 252; /* slate-50 */
+  --neon-cyan: 34, 211, 238; /* cyan-400 */
+  --neon-purple: 192, 132, 252; /* purple-400 */
+  --neon-green: 52, 211, 153; /* emerald-400 */
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  color: rgb(var(--foreground));
+  background-color: rgb(var(--background));
+  background-image: 
+    radial-gradient(circle at 15% 50%, rgba(var(--neon-purple), 0.08), transparent 25%),
+    radial-gradient(circle at 85% 30%, rgba(var(--neon-cyan), 0.08), transparent 25%);
+  background-attachment: fixed;
+  font-family: 'Inter', sans-serif;
+}
+
+@layer utilities {
+  .glass-panel {
+    @apply bg-slate-900/40 backdrop-blur-md border border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.1)];
+  }
+  
+  .glass-card {
+    @apply bg-slate-800/30 backdrop-blur-lg border border-slate-700/50 shadow-xl hover:border-cyan-500/50 transition-all duration-300;
+  }
+
+  .text-neon-cyan {
+    @apply text-cyan-400 drop-shadow-[0_0_8px_rgba(34,211,238,0.8)];
+  }
+
+  .text-neon-purple {
+    @apply text-purple-400 drop-shadow-[0_0_8px_rgba(192,132,252,0.8)];
+  }
+  
+  .text-neon-green {
+    @apply text-emerald-400 drop-shadow-[0_0_8px_rgba(52,211,153,0.8)];
+  }
 }
