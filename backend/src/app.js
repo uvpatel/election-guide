@@ -3,18 +3,21 @@ import cors from "@fastify/cors";
 import fastifySocketIo from "fastify-socket.io";
 import simulationRoutes from "./routes/simulationRoutes.js";
 import aiEngineRoutes from "./routes/aiEngineRoutes.js";
+import { env } from "./config/env.js";
 
 export function buildApp() {
   const app = fastify({ logger: true });
 
   app.register(cors, {
-    origin: "*", // Adjust in production
+    origin: env.corsOrigin, 
+    credentials: true
   });
 
   app.register(fastifySocketIo, {
     cors: {
-      origin: "*",
-      methods: ["GET", "POST"]
+      origin: env.corsOrigin,
+      methods: ["GET", "POST"],
+      credentials: true
     }
   });
 

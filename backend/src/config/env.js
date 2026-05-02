@@ -9,5 +9,5 @@ export const env = {
   firebaseProjectId: process.env.FIREBASE_PROJECT_ID || "",
   firebaseClientEmail: process.env.FIREBASE_CLIENT_EMAIL || "",
   firebasePrivateKey: (process.env.FIREBASE_PRIVATE_KEY || "").replace(/\\n/g, "\n"),
-  corsOrigin: process.env.CORS_ORIGIN || "*",
+  corsOrigin: process.env.FRONTEND_URL || process.env.CORS_ORIGIN || "*",
 };

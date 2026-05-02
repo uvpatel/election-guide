@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { io } from 'socket.io-client';
 import { motion, AnimatePresence } from 'framer-motion';
+import { apiService } from '../lib/apiService';
 
 export default function SimulationCanvas() {
   const [policyText, setPolicyText] = useState("");
@@ -12,7 +13,8 @@ export default function SimulationCanvas() {
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    const newSocket = io('https://pulse-backend-164617921386.asia-south1.run.app');
+    const SOCKET_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080';
+    const newSocket = io(SOCKET_URL);
     setSocket(newSocket);
 
     newSocket.on('simulation:start', (data) => {
@@ -35,10 +37,13 @@ export default function SimulationCanvas() {
     if (!policyText) return;
     setIsSimulating(true);
     try {
-      await fetch('https://pulse-backend-164617921386.asia-south1.run.app/api/simulate-sentiment', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ eventText: policyText, personas: [{ id: "P-847", demographic: "Gen Z Urban Student", core_values: ["climate", "education", "jobs"] }, { id: "P-219", demographic: "Rural Farmer", core_values: ["agriculture", "subsidies", "infrastructure"] }, { id: "P-551", demographic: "Suburban Parent", core_values: ["taxes", "healthcare", "safety"] }] })
+      await apiService.post('/api/simulate-sentiment', {
+        eventText: policyText, 
+        personas: [
+          { id: "P-847", demographic: "Gen Z Urban Student", core_values: ["climate", "education", "jobs"] }, 
+          { id: "P-219", demographic: "Rural Farmer", core_values: ["agriculture", "subsidies", "infrastructure"] }, 
+          { id: "P-551", demographic: "Suburban Parent", core_values: ["taxes", "healthcare", "safety"] }
+        ]
       });
     } catch (e) {
       console.error(e);
